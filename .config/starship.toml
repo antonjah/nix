@@ -1,0 +1,249 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+palette = "catppuccin_mocha"
+
+add_newline = false
+
+[cmd_duration]
+disabled = true
+
+[directory]
+read_only = " 󰌾"
+disabled = false
+
+[line_break]
+disabled = true
+
+[aws]
+disabled = true
+format = "[$symbol]($style)"
+symbol = "  "
+
+[buf]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[c]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[cmake]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[conda]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[crystal]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[dart]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[docker_context]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[elixir]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[elm]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[fennel]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[fossil_branch]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[git_branch]
+disabled = false
+symbol = " "
+
+[git_commit]
+tag_symbol = '  '
+
+[golang]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[guix_shell]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[haskell]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[haxe]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[hg_branch]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[hostname]
+disabled = true
+format = "[$symbol]($style)"
+ssh_symbol = " "
+
+[java]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[julia]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[kotlin]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[lua]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[memory_usage]
+disabled = true
+format = "[$symbol]($style)"
+symbol = "󰍛 "
+
+[meson]
+disabled = true
+format = "[$symbol]($style)"
+symbol = "󰔷 "
+
+[nim]
+disabled = true
+format = "[$symbol]($style)"
+symbol = "󰆥 "
+
+[nix_shell]
+disabled = false
+format = "[$symbol]($style)"
+symbol = " "
+
+[nodejs]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[ocaml]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[package]
+format = "[$symbol]($style)"
+symbol = "󰏗 "
+
+[perl]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[php]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[pijul_channel]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[python]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[rlang]
+disabled = true
+format = "[$symbol]($style)"
+symbol = "󰟔 "
+
+[ruby]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[rust]
+disabled = true
+format = "[$symbol]($style)"
+symbol = "󱘗 "
+
+[scala]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[swift]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[zig]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[gradle]
+disabled = true
+format = "[$symbol]($style)"
+symbol = " "
+
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"

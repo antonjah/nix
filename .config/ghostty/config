@@ -1,0 +1,5 @@
+gtk-titlebar = true
+theme = catppuccin-mocha.conf
+font-family = "Cascadia Code PL"
+cursor-style = block
+shell-integration-features = no-cursor
