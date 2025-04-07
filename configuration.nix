@@ -148,6 +148,7 @@
     gradle_7
     openjdk17-bootstrap
     go
+    python3
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
