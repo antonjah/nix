@@ -149,6 +149,7 @@
     openjdk17-bootstrap
     go
     python3
+    gcc
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
