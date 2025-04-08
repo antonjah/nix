@@ -6,7 +6,6 @@
     autosuggestions.enable = true;
     shellAliases = {
       nrs = "sudo nixos-rebuild switch";
-      vim = "nvim";
     };
   };
 }

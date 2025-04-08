@@ -96,7 +96,6 @@
     starship
     vscode
     jetbrains.goland
-    neovim
     teams-for-linux
     fzf
     cascadia-code
@@ -104,7 +103,7 @@
     openjdk17-bootstrap
     go
     python3
-    gcc
+    gcc11
   ];
 
   # Set NixOS version
