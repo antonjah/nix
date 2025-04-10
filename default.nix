@@ -97,8 +97,6 @@
   # Packages
   environment.systemPackages = with pkgs; [
     git
-    zsh
-    starship
     vscode
     jetbrains.goland
     teams-for-linux
@@ -109,6 +107,7 @@
     go
     python3
     gcc11
+    starship
   ];
 
   # Set NixOS version
