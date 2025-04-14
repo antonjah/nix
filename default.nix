@@ -1,19 +1,17 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [
-      ./modules
-    ];
+  imports = [ ./modules ];
 
   # Nvidia
   nixpkgs.config.nvidia.acceptLicense = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.open = false;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+  hardware.nvidia.package =
+    config.boot.kernelPackages.nvidiaPackages.legacy_470;
   hardware.graphics = {
     enable = true;
-    extraPackages = with pkgs; [nvidia-vaapi-driver];
+    extraPackages = with pkgs; [ nvidia-vaapi-driver ];
   };
 
   # Bootloader
@@ -54,7 +52,7 @@
   services.xserver.displayManager.gdm.wayland = true;
   services.xserver.desktopManager.gnome.enable = true;
 
-  # Disable GNOME auto-suspend
+  # Disable auto-suspend
   systemd.targets.sleep.enable = false;
   systemd.targets.suspend.enable = false;
   systemd.targets.hibernate.enable = false;
@@ -96,19 +94,32 @@
 
   # Packages
   environment.systemPackages = with pkgs; [
+    bash
     git
     vscode
     jetbrains.goland
     teams-for-linux
     fzf
     cascadia-code
-    gradle_7
-    openjdk17-bootstrap
-    go
-    python3
-    gcc11
     starship
+    youtube-music
+    tmux
+    kubectl
+    nixfmt-classic
+    discord
+    go
+    openjdk17-bootstrap
+    python3
+    gradle_7
+    gcc11
   ];
+
+  # Dynamic libs
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [ zlib gcc11 glibc ];
+
+  # Enable command and flakes
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Set NixOS version
   system.stateVersion = "24.11";
