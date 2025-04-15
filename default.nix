@@ -112,7 +112,17 @@
     python3
     gradle_7
     gcc11
+    kubernetes-helm
+    k9s
+    gnome-tweaks
+    tig
   ];
+
+  # k3s
+  networking.firewall.allowedTCPPorts = [ 6443 ];
+  networking.firewall.allowedUDPPorts = [ ];
+  services.k3s.enable = true;
+  services.k3s.role = "server";
 
   # Dynamic libs
   programs.nix-ld.enable = true;

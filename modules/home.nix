@@ -19,11 +19,17 @@ in
   home-manager.users.anton = {
     home.stateVersion = "24.11";
 
+    # Enable k9s
+    programs.k9s.enable = true;
+
     # Enable Hyprland
     programs.kitty = {
       enable = true;
       font.name = "Cascadia Code PL";
       font.size = 12;
+      settings = {
+        enable_audio_bell = false;
+      };
       shellIntegration.enableZshIntegration = true;
     };
 
@@ -104,7 +110,7 @@ in
       tmux.enableShellIntegration = true;
     };
 
-# Starship
+    # Starship
     programs.starship = {
       enable = true;
       enableZshIntegration = true;
@@ -153,6 +159,9 @@ in
           disabled = true;
         };
         guix_shell = {
+          disabled = true;
+        };
+        helm = {
           disabled = true;
         };
         haskell = {
