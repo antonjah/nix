@@ -22,15 +22,17 @@ in
     # Enable k9s
     programs.k9s.enable = true;
 
-    # Enable Hyprland
+    # Enable kitty
     programs.kitty = {
       enable = true;
       font.name = "Cascadia Code PL";
       font.size = 12;
       settings = {
         enable_audio_bell = false;
+        cursor_shape = "block";
       };
       shellIntegration.enableZshIntegration = true;
+      shellIntegration.mode = "no-cursor";
     };
 
     # Enable catppuccin
