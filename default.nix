@@ -1,7 +1,10 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./modules ];
+  imports = [ 
+    ./modules
+    ./falcon.nix
+  ];
 
   # Nvidia
   nixpkgs.config.nvidia.acceptLicense = true;
@@ -13,6 +16,12 @@
     enable = true;
     extraPackages = with pkgs; [ nvidia-vaapi-driver ];
   };
+
+  # Virtualization
+  programs.virt-manager.enable = true;
+  users.groups.libvirtd.members = ["anton"];
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
 
   # Bootloader
   boot.loader.grub.enable = true;
@@ -119,8 +128,9 @@
     gcc11
     kubernetes-helm
     k9s
-    gnome-tweaks
     tig
+    curlie
+    jq
   ];
 
   # k3s

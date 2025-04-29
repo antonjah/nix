@@ -6,18 +6,23 @@ let
   };
 
   home-manager = builtins.fetchTarball {
-    url = "https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz";
+    url =
+      "https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz";
     sha256 = "0qk1qn04willw5qrzfjs9b7815np8mr6ci68a2787g3q7444bdxp";
   };
-in
-{
-  imports = [
-    ("${catppuccin}/modules/nixos")
-    ("${home-manager}/nixos")
-  ];
+in {
+  imports = [ ("${catppuccin}/modules/nixos") ("${home-manager}/nixos") ];
 
   home-manager.users.anton = {
     home.stateVersion = "24.11";
+
+    # Set emulator for virt
+    dconf.settings = {
+      "org/virt-manager/virt-manager/connections" = {
+        autoconnect = [ "qemu:///system" ];
+        uris = [ "qemu:///system" ];
+      };
+    };
 
     # Enable k9s
     programs.k9s.enable = true;
@@ -56,11 +61,9 @@ in
     # Git
     programs.git = {
       enable = true;
-      userName  = "Anton Andersson";
+      userName = "Anton Andersson";
       userEmail = "anton.andersson@protegrity.com";
-      aliases = {
-        co = "checkout";
-      };
+      aliases = { co = "checkout"; };
     };
 
     # Zsh
@@ -71,9 +74,12 @@ in
         nrs = "sudo nixos-rebuild switch";
         ns = "nix-shell";
         k = "kubectl";
+        curl = "curlie";
         gco = "git checkout";
-        ecu = "cd ~/src/gitlab/pim/code && gradle pim.esamock:composeUp --parallel -w && cd -";
-        ecd = "cd ~/src/gitlab/pim/code && gradle pim.esamock:composeDown -w && cd -";
+        ecu =
+          "cd ~/src/gitlab/pim/code && gradle pim.esamock:composeUp --parallel -w && cd -";
+        ecd =
+          "cd ~/src/gitlab/pim/code && gradle pim.esamock:composeDown -w && cd -";
       };
       initExtra = ''
         bindkey -e
@@ -95,10 +101,40 @@ in
         set expandtab
         set shiftwidth=4
         set tabstop=4
+        inoremap <silent><expr> <tab> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<TAB>"
+        inoremap <silent><expr> <cr> "\<c-g>u\<CR>"
+        inoremap <silent><expr> <c-space> coc#refresh()
       '';
+      coc.enable = true;
       plugins = with pkgs.vimPlugins; [
-        lightline-vim
+        nerdtree 
+        coc-go
+        vim-go
         auto-pairs
+        nvim-treesitter
+        nvim-treesitter.withAllGrammars
+        {
+          plugin = lualine-nvim;
+          type = "lua";
+          config = ''
+            local function metals_status()
+              return vim.g["metals_status"] or ""
+            end
+            require('lualine').setup(
+              {
+                options = { theme = 'catppuccin' },
+                sections = {
+                  lualine_a = { 'mode' },
+                  lualine_b = { 'branch', 'diff' },
+                  lualine_c = { 'filename', metals_status },
+                  lualine_x = {'encoding', 'filetype'},
+                  lualine_y = {'progress'},
+                  lualine_z = {'location'}
+                }
+              }
+            )
+          '';
+        }
       ];
     };
 
@@ -118,126 +154,46 @@ in
       enableZshIntegration = true;
       settings = {
         add_newline = false;
-        cmd_duration = {
-          disabled = true;
-        };
-        line_break = {
-          disabled = true;
-        };
-        buf = {
-          disabled = true;
-        };
-        c = {
-          disabled = true;
-        };
-        cmake = {
-          disabled = true;
-        };
-        conda = {
-          disabled = true;
-        };
-        crystal = {
-          disabled = true;
-        };
-        dart = {
-          disabled = true;
-        };
-        docker_context = {
-          disabled = true;
-        };
-        elixir = {
-          disabled = true;
-        };
-        elm = {
-          disabled = true;
-        };
-        fennel = {
-          disabled = true;
-        };
-        fossil_branch = {
-          disabled = true;
-        };
-        golang = {
-          disabled = true;
-        };
-        guix_shell = {
-          disabled = true;
-        };
-        helm = {
-          disabled = true;
-        };
-        haskell = {
-          disabled = true;
-        };
-        haxe = {
-          disabled = true;
-        };
-        hg_branch = {
-          disabled = true;
-        };
-        hostname = {
-          disabled = true;
-        };
-        java = {
-          disabled = true;
-        };
-        julia = {
-          disabled = true;
-        };
-        kotlin = {
-          disabled = true;
-        };
-        lua = {
-          disabled = true;
-        };
-        memory_usage = {
-          disabled = true;
-        };
-        meson = {
-          disabled = true;
-        };
-        nim = {
-          disabled = true;
-        };
-        nodejs = {
-          disabled = true;
-        };
-        ocaml = {
-          disabled = true;
-        };
-        perl = {
-          disabled = true;
-        };
-        php = {
-          disabled = true;
-        };
-        python = {
-          disabled = true;
-        };
-        pijul_channel = {
-          disabled = true;
-        };
-        rlang = {
-          disabled = true;
-        };
-        ruby = {
-          disabled = true;
-        };
-        rust = {
-          disabled = true;
-        };
-        scala = {
-          disabled = true;
-        };
-        swift = {
-          disabled = true;
-        };
-        zig = {
-          disabled = true;
-        };
-        gradle = {
-          disabled = true;
-        };
+        cmd_duration = { disabled = true; };
+        line_break = { disabled = true; };
+        buf = { disabled = true; };
+        c = { disabled = true; };
+        cmake = { disabled = true; };
+        conda = { disabled = true; };
+        crystal = { disabled = true; };
+        dart = { disabled = true; };
+        docker_context = { disabled = true; };
+        elixir = { disabled = true; };
+        elm = { disabled = true; };
+        fennel = { disabled = true; };
+        fossil_branch = { disabled = true; };
+        golang = { disabled = true; };
+        guix_shell = { disabled = true; };
+        helm = { disabled = true; };
+        haskell = { disabled = true; };
+        haxe = { disabled = true; };
+        hg_branch = { disabled = true; };
+        hostname = { disabled = true; };
+        java = { disabled = true; };
+        julia = { disabled = true; };
+        kotlin = { disabled = true; };
+        lua = { disabled = true; };
+        memory_usage = { disabled = true; };
+        meson = { disabled = true; };
+        nim = { disabled = true; };
+        nodejs = { disabled = true; };
+        ocaml = { disabled = true; };
+        perl = { disabled = true; };
+        php = { disabled = true; };
+        python = { disabled = true; };
+        pijul_channel = { disabled = true; };
+        rlang = { disabled = true; };
+        ruby = { disabled = true; };
+        rust = { disabled = true; };
+        scala = { disabled = true; };
+        swift = { disabled = true; };
+        zig = { disabled = true; };
+        gradle = { disabled = true; };
       };
     };
   };
