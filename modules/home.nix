@@ -2,13 +2,13 @@
 let
   catppuccin = builtins.fetchTarball {
     url = "https://github.com/catppuccin/nix/archive/main.tar.gz";
-    sha256 = "1r7kqsd928c1kiaj6pqynhazvg8s1dvdj5j1zw5hs5p623j8m6yg";
+    sha256 = "1k5lsnx6shjx6189cj2pny79whm72wpjj67aq2hs6hl3a2gxq27z";
   };
 
   home-manager = builtins.fetchTarball {
     url =
       "https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz";
-    sha256 = "0qk1qn04willw5qrzfjs9b7815np8mr6ci68a2787g3q7444bdxp";
+    sha256 = "0gjfa3bv0m0kymxqla9iih11gjb6czyj942v34pyc7xy4qsx898k";
   };
 in {
   imports = [ ("${catppuccin}/modules/nixos") ("${home-manager}/nixos") ];
@@ -16,16 +16,40 @@ in {
   home-manager.users.anton = {
     home.stateVersion = "24.11";
 
-    # Set emulator for virt
-    dconf.settings = {
-      "org/virt-manager/virt-manager/connections" = {
-        autoconnect = [ "qemu:///system" ];
-        uris = [ "qemu:///system" ];
-      };
-    };
+    # set $PATH
+    home.sessionPath = [ "/home/anton/.cargo/bin" ];
 
     # Enable k9s
     programs.k9s.enable = true;
+
+    # Rofi
+    programs.rofi.enable = true;
+
+    # Waybar
+    programs.waybar = {
+      enable = false;
+      settings = {
+        mainBar = {
+          reload-style-on-change = true;
+          layer = "top";
+          position = "top";
+          height = 20;
+          output = [ "DP-2" ];
+          modules-left = [ "hyprland/workspaces" "hyprland/mode" ];
+          modules-center = [ "clock" ];
+          modules-right = [ ];
+        };
+      };
+    };
+
+    # Hyprlock
+    programs.hyprlock = {
+      enable = true;
+      settings = {
+        general = { hide_cursor = true; };
+        input-field = [{ monitor = "DP-2, 2560x1080@144, 0x0, 1"; }];
+      };
+    };
 
     # Enable kitty
     programs.kitty = {
@@ -35,6 +59,7 @@ in {
       settings = {
         enable_audio_bell = false;
         cursor_shape = "block";
+        window_padding_width = 20;
       };
       shellIntegration.enableZshIntegration = true;
       shellIntegration.mode = "no-cursor";
@@ -107,7 +132,7 @@ in {
       '';
       coc.enable = true;
       plugins = with pkgs.vimPlugins; [
-        nerdtree 
+        nerdtree
         coc-go
         vim-go
         auto-pairs

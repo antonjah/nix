@@ -3,25 +3,26 @@
 {
   imports = [ 
     ./modules
-    ./falcon.nix
   ];
 
-  # Nvidia
-  nixpkgs.config.nvidia.acceptLicense = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.open = false;
-  hardware.nvidia.package =
-    config.boot.kernelPackages.nvidiaPackages.legacy_470;
+  # Load nvidia driver for Xorg and Wayland
+  services.xserver.videoDrivers = ["nvidia"];
+
+  # Enable Nvidia
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    open = false;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+
+  # Enable OpenGL
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [ nvidia-vaapi-driver ];
   };
-
-  # Virtualization
-  programs.virt-manager.enable = true;
-  users.groups.libvirtd.members = ["anton"];
-  virtualisation.libvirtd.enable = true;
-  virtualisation.spiceUSBRedirection.enable = true;
 
   # Bootloader
   boot.loader.grub.enable = true;
@@ -56,16 +57,14 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-  #services.xserver.displayManager.gdm.enable = true;
-  #services.xserver.displayManager.gdm.wayland = true;
-  #services.xserver.desktopManager.gnome.enable = true;
-  
-  # Enable Plasma6
-  services.desktopManager.plasma6.enable = true;
-  services.displayManager.sddm.wayland.enable = false;
-  services.displayManager.sddm.enable = true;
+  # Enable hyprland
+  programs.hyprland.enable = true;
 
+  # Enable the GNOME Desktop Environment.
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.gdm.wayland = true;
+  services.xserver.desktopManager.gnome.enable = true;
+  
   # Disable auto-suspend
   systemd.targets.sleep.enable = false;
   systemd.targets.suspend.enable = false;
@@ -131,15 +130,15 @@
     tig
     curlie
     jq
-  ];
-
-  # k3s
-  networking.firewall.allowedTCPPorts = [ 6443 ];
-  networking.firewall.allowedUDPPorts = [ ];
-  services.k3s.enable = true;
-  services.k3s.role = "server";
-  services.k3s.extraFlags = toString [
-    "--disable=traefik"
+    hyprlock
+    rofi
+    dolphin
+    waybar
+    unzip
+    pavucontrol
+    hyprpaper
+    hyprcursor
+    killall
   ];
 
   # Dynamic libs
