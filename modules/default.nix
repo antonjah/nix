@@ -5,6 +5,7 @@
     [
       ./home.nix
       ./user.nix
+      ./k3s.nix
     ];
   
   # Enable zsh

@@ -23,7 +23,10 @@ in {
     programs.k9s.enable = true;
 
     # Rofi
-    programs.rofi.enable = true;
+    programs.rofi = {
+      enable = true;
+      theme = "rounded-purple-dark";
+    };
 
     # Waybar
     programs.waybar = {
@@ -69,6 +72,7 @@ in {
     imports = [ "${catppuccin}/modules/home-manager" ];
     catppuccin.flavor = "mocha";
     catppuccin.enable = true;
+    catppuccin.rofi.enable = false;
 
     # Ghostty
     programs.ghostty = {
@@ -89,6 +93,9 @@ in {
       userName = "Anton Andersson";
       userEmail = "anton.andersson@protegrity.com";
       aliases = { co = "checkout"; };
+      extraConfig= {
+        pull.rebase = true;
+      };
     };
 
     # Zsh
