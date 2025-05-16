@@ -3,10 +3,8 @@
 {
   imports = [ ./modules ];
 
-  # Load nvidia driver for Xorg and Wayland
+  # nvidia
   services.xserver.videoDrivers = [ "nvidia" ];
-
-  # Enable Nvidia
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = false;
@@ -16,36 +14,36 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  # Enable OpenGL
+  # opengl
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [ nvidia-vaapi-driver ];
   };
 
-  # Bootloader
+  # bootloader
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/nvme0n1";
   boot.loader.grub.useOSProber = true;
 
-  # Set hostname
+  # hostname
   networking.hostName = "nixos";
 
-  # Enable networking
+  # networking
   networking.networkmanager.enable = true;
 
-  # Update /etc/hosts
+  # /etc/hosts
   networking.extraHosts = ''
     127.0.0.1 eclipse.aws.protegrity.com
     127.0.0.1 eclipseaf.aws.protegrity.com
   '';
 
-  # Set time zone
+  # time zone
   time.timeZone = "Europe/Stockholm";
 
-  # Select internationalisation properties
+  # internationalisation
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Set locale
+  # locale
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "sv_SE.UTF-8";
     LC_IDENTIFICATION = "sv_SE.UTF-8";
@@ -58,36 +56,34 @@
     LC_TIME = "sv_SE.UTF-8";
   };
 
-  # Enable the X11 windowing system.
+  # x11
   services.xserver.enable = true;
-
-  # Enable hyprland
-  programs.hyprland.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.gdm.wayland = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  # Disable auto-suspend
-  systemd.targets.sleep.enable = false;
-  systemd.targets.suspend.enable = false;
-  systemd.targets.hibernate.enable = false;
-  systemd.targets.hybrid-sleep.enable = false;
-
-  # Configure keymap in X11
   services.xserver.xkb = {
     layout = "se";
     variant = "";
   };
 
-  # Configure console keymap
+  # hyprland
+  programs.hyprland.enable = true;
+
+  # gnome
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.gdm.wayland = true;
+  services.xserver.desktopManager.gnome.enable = true;
+
+  # disable gnome autosuspend
+  systemd.targets.sleep.enable = false;
+  systemd.targets.suspend.enable = false;
+  systemd.targets.hibernate.enable = false;
+  systemd.targets.hybrid-sleep.enable = false;
+
+  # keyboard
   console.keyMap = "sv-latin1";
 
-  # Enable printing
+  # printing
   services.printing.enable = true;
 
-  # Enable sound
+  # sound
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -97,19 +93,19 @@
     pulse.enable = true;
   };
 
-  # Allow unfree packages
+  # allow unfree
   nixpkgs.config.allowUnfree = true;
 
-  # Enable firefox
+  # firefox
   programs.firefox.enable = true;
 
-  # Enable OpenSSH
+  # openssh
   services.openssh.enable = true;
 
-  # Enable Docker
+  # docker
   virtualisation.docker.enable = true;
 
-  # Packages
+  # packages
   environment.systemPackages = with pkgs; [
     bash
     git
@@ -147,7 +143,16 @@
     zed-editor
   ];
 
-  # Dynamic libs
+  # zsh
+  programs.zsh.enable = true;
+
+  # starship
+  programs.starship.enable = true;
+
+  # neovim
+  programs.neovim.enable = true;
+
+  # dynamic libraries
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     zlib
@@ -155,12 +160,12 @@
     glibc
   ];
 
-  # Enable command and flakes
+  # nix features
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
 
-  # Set NixOS version
+  # nixos version that was first used (not current one)
   system.stateVersion = "24.11";
 }

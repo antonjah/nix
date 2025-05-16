@@ -1,10 +1,12 @@
 { config, pkgs, ... }:
 let
+  # manage catppuccin
   catppuccin = builtins.fetchTarball {
     url = "https://github.com/catppuccin/nix/archive/main.tar.gz";
     sha256 = "1k5lsnx6shjx6189cj2pny79whm72wpjj67aq2hs6hl3a2gxq27z";
   };
 
+  # manage home-manager (inception)
   home-manager = builtins.fetchTarball {
     url = "https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz";
     sha256 = "0gjfa3bv0m0kymxqla9iih11gjb6czyj942v34pyc7xy4qsx898k";
@@ -17,15 +19,19 @@ in
   ];
 
   home-manager.users.anton = {
+    # set the state version that was first used
     home.stateVersion = "24.11";
 
     # set packages
-    home.packages = [ pkgs.nixfmt-rfc-style ];
+    home.packages = [
+      pkgs.nixfmt-rfc-style
+      pkgs.nixd
+    ];
 
     # set $PATH
     home.sessionPath = [ "/home/anton/.cargo/bin" ];
 
-    # Enable Zed
+    # zed
     programs.zed-editor = {
       enable = true;
       extensions = [ "nix" ];
@@ -47,16 +53,16 @@ in
       };
     };
 
-    # Enable k9s
+    # enable k9s
     programs.k9s.enable = true;
 
-    # Rofi
+    # rofi
     programs.rofi = {
       enable = true;
       theme = "rounded-purple-dark";
     };
 
-    # Waybar
+    # waybar
     programs.waybar = {
       enable = false;
       settings = {
@@ -76,7 +82,7 @@ in
       };
     };
 
-    # Hyprlock
+    # hyprlock
     programs.hyprlock = {
       enable = true;
       settings = {
@@ -87,7 +93,7 @@ in
       };
     };
 
-    # Enable kitty
+    # kitty
     programs.kitty = {
       enable = true;
       font.name = "Cascadia Code PL";
@@ -101,13 +107,13 @@ in
       shellIntegration.mode = "no-cursor";
     };
 
-    # Enable catppuccin
+    # catppuccin
     imports = [ "${catppuccin}/modules/home-manager" ];
     catppuccin.flavor = "mocha";
     catppuccin.enable = true;
     catppuccin.rofi.enable = false;
 
-    # Ghostty
+    # ghostty
     programs.ghostty = {
       enable = true;
       enableZshIntegration = true;
@@ -120,7 +126,7 @@ in
       };
     };
 
-    # Git
+    # git
     programs.git = {
       enable = true;
       userName = "Anton Andersson";
@@ -133,7 +139,7 @@ in
       };
     };
 
-    # Zsh
+    # zsh
     programs.zsh = {
       enable = true;
       autosuggestion.enable = true;
@@ -155,7 +161,7 @@ in
       oh-my-zsh.plugins = [ "z" ];
     };
 
-    # Neovim
+    # neovim
     programs.neovim = {
       enable = true;
       defaultEditor = true;
@@ -203,7 +209,7 @@ in
       ];
     };
 
-    # Tmux
+    # tmux
     programs.tmux.enable = true;
 
     # fzf
@@ -213,7 +219,7 @@ in
       tmux.enableShellIntegration = true;
     };
 
-    # Starship
+    # starship
     programs.starship = {
       enable = true;
       enableZshIntegration = true;
