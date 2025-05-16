@@ -5,7 +5,11 @@
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "Anton Andersson";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
     packages = with pkgs; [ ];
   };
 }

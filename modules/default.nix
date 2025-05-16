@@ -1,13 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [
-      ./home.nix
-      ./user.nix
-      ./k3s.nix
-    ];
-  
+  imports = [
+    ./home.nix
+    ./user.nix
+    ./k3s.nix
+  ];
+
   # Enable zsh
   programs.zsh.enable = true;
 

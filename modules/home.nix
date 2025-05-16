@@ -6,18 +6,46 @@ let
   };
 
   home-manager = builtins.fetchTarball {
-    url =
-      "https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz";
+    url = "https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz";
     sha256 = "0gjfa3bv0m0kymxqla9iih11gjb6czyj942v34pyc7xy4qsx898k";
   };
-in {
-  imports = [ ("${catppuccin}/modules/nixos") ("${home-manager}/nixos") ];
+in
+{
+  imports = [
+    ("${catppuccin}/modules/nixos")
+    ("${home-manager}/nixos")
+  ];
 
   home-manager.users.anton = {
     home.stateVersion = "24.11";
 
+    # set packages
+    home.packages = [ pkgs.nixfmt-rfc-style ];
+
     # set $PATH
     home.sessionPath = [ "/home/anton/.cargo/bin" ];
+
+    # Enable Zed
+    programs.zed-editor = {
+      enable = true;
+      extensions = [ "nix" ];
+      userSettings = {
+        format_on_save = "off";
+        languages = {
+          "Nix" = {
+            formatter = {
+              external = {
+                command = "nixfmt";
+                arguments = [
+                  "--quiet"
+                  "--"
+                ];
+              };
+            };
+          };
+        };
+      };
+    };
 
     # Enable k9s
     programs.k9s.enable = true;
@@ -38,7 +66,10 @@ in {
           position = "top";
           height = 20;
           output = [ "DP-2" ];
-          modules-left = [ "hyprland/workspaces" "hyprland/mode" ];
+          modules-left = [
+            "hyprland/workspaces"
+            "hyprland/mode"
+          ];
           modules-center = [ "clock" ];
           modules-right = [ ];
         };
@@ -49,8 +80,10 @@ in {
     programs.hyprlock = {
       enable = true;
       settings = {
-        general = { hide_cursor = true; };
-        input-field = [{ monitor = "DP-2, 2560x1080@144, 0x0, 1"; }];
+        general = {
+          hide_cursor = true;
+        };
+        input-field = [ { monitor = "DP-2, 2560x1080@144, 0x0, 1"; } ];
       };
     };
 
@@ -92,8 +125,10 @@ in {
       enable = true;
       userName = "Anton Andersson";
       userEmail = "anton.andersson@protegrity.com";
-      aliases = { co = "checkout"; };
-      extraConfig= {
+      aliases = {
+        co = "checkout";
+      };
+      extraConfig = {
         pull.rebase = true;
       };
     };
@@ -108,10 +143,8 @@ in {
         k = "kubectl";
         curl = "curlie";
         gco = "git checkout";
-        ecu =
-          "cd ~/src/gitlab/pim/code && gradle pim.esamock:composeUp --parallel -w && cd -";
-        ecd =
-          "cd ~/src/gitlab/pim/code && gradle pim.esamock:composeDown -w && cd -";
+        ecu = "cd ~/src/gitlab/pim/code && gradle pim.esamock:composeUp --parallel -w && cd -";
+        ecd = "cd ~/src/gitlab/pim/code && gradle pim.esamock:composeDown -w && cd -";
       };
       initExtra = ''
         bindkey -e
@@ -186,46 +219,126 @@ in {
       enableZshIntegration = true;
       settings = {
         add_newline = false;
-        cmd_duration = { disabled = true; };
-        line_break = { disabled = true; };
-        buf = { disabled = true; };
-        c = { disabled = true; };
-        cmake = { disabled = true; };
-        conda = { disabled = true; };
-        crystal = { disabled = true; };
-        dart = { disabled = true; };
-        docker_context = { disabled = true; };
-        elixir = { disabled = true; };
-        elm = { disabled = true; };
-        fennel = { disabled = true; };
-        fossil_branch = { disabled = true; };
-        golang = { disabled = true; };
-        guix_shell = { disabled = true; };
-        helm = { disabled = true; };
-        haskell = { disabled = true; };
-        haxe = { disabled = true; };
-        hg_branch = { disabled = true; };
-        hostname = { disabled = true; };
-        java = { disabled = true; };
-        julia = { disabled = true; };
-        kotlin = { disabled = true; };
-        lua = { disabled = true; };
-        memory_usage = { disabled = true; };
-        meson = { disabled = true; };
-        nim = { disabled = true; };
-        nodejs = { disabled = true; };
-        ocaml = { disabled = true; };
-        perl = { disabled = true; };
-        php = { disabled = true; };
-        python = { disabled = true; };
-        pijul_channel = { disabled = true; };
-        rlang = { disabled = true; };
-        ruby = { disabled = true; };
-        rust = { disabled = true; };
-        scala = { disabled = true; };
-        swift = { disabled = true; };
-        zig = { disabled = true; };
-        gradle = { disabled = true; };
+        cmd_duration = {
+          disabled = true;
+        };
+        line_break = {
+          disabled = true;
+        };
+        buf = {
+          disabled = true;
+        };
+        c = {
+          disabled = true;
+        };
+        cmake = {
+          disabled = true;
+        };
+        conda = {
+          disabled = true;
+        };
+        crystal = {
+          disabled = true;
+        };
+        dart = {
+          disabled = true;
+        };
+        docker_context = {
+          disabled = true;
+        };
+        elixir = {
+          disabled = true;
+        };
+        elm = {
+          disabled = true;
+        };
+        fennel = {
+          disabled = true;
+        };
+        fossil_branch = {
+          disabled = true;
+        };
+        golang = {
+          disabled = true;
+        };
+        guix_shell = {
+          disabled = true;
+        };
+        helm = {
+          disabled = true;
+        };
+        haskell = {
+          disabled = true;
+        };
+        haxe = {
+          disabled = true;
+        };
+        hg_branch = {
+          disabled = true;
+        };
+        hostname = {
+          disabled = true;
+        };
+        java = {
+          disabled = true;
+        };
+        julia = {
+          disabled = true;
+        };
+        kotlin = {
+          disabled = true;
+        };
+        lua = {
+          disabled = true;
+        };
+        memory_usage = {
+          disabled = true;
+        };
+        meson = {
+          disabled = true;
+        };
+        nim = {
+          disabled = true;
+        };
+        nodejs = {
+          disabled = true;
+        };
+        ocaml = {
+          disabled = true;
+        };
+        perl = {
+          disabled = true;
+        };
+        php = {
+          disabled = true;
+        };
+        python = {
+          disabled = true;
+        };
+        pijul_channel = {
+          disabled = true;
+        };
+        rlang = {
+          disabled = true;
+        };
+        ruby = {
+          disabled = true;
+        };
+        rust = {
+          disabled = true;
+        };
+        scala = {
+          disabled = true;
+        };
+        swift = {
+          disabled = true;
+        };
+        zig = {
+          disabled = true;
+        };
+        gradle = {
+          disabled = true;
+        };
       };
     };
   };

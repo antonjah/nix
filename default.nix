@@ -1,12 +1,10 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ 
-    ./modules
-  ];
+  imports = [ ./modules ];
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   # Enable Nvidia
   hardware.nvidia = {
@@ -34,6 +32,12 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+
+  # Update /etc/hosts
+  networking.extraHosts = ''
+    127.0.0.1 eclipse.aws.protegrity.com
+    127.0.0.1 eclipseaf.aws.protegrity.com
+  '';
 
   # Set time zone
   time.timeZone = "Europe/Stockholm";
@@ -64,7 +68,7 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.displayManager.gdm.wayland = true;
   services.xserver.desktopManager.gnome.enable = true;
-  
+
   # Disable auto-suspend
   systemd.targets.sleep.enable = false;
   systemd.targets.suspend.enable = false;
@@ -118,7 +122,6 @@
     youtube-music
     tmux
     kubectl
-    nixfmt-classic
     discord
     go
     openjdk17-bootstrap
@@ -139,14 +142,24 @@
     hyprpaper
     hyprcursor
     killall
+    gcc11
+    cmake
+    zed-editor
   ];
 
   # Dynamic libs
   programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [ zlib gcc11 glibc ];
+  programs.nix-ld.libraries = with pkgs; [
+    zlib
+    gcc11
+    glibc
+  ];
 
   # Enable command and flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Set NixOS version
   system.stateVersion = "24.11";
