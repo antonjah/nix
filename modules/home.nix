@@ -14,8 +14,8 @@ let
 in
 {
   imports = [
-    ("${catppuccin}/modules/nixos")
-    ("${home-manager}/nixos")
+    "${catppuccin}/modules/nixos"
+    "${home-manager}/nixos"
   ];
 
   home-manager.users.anton = {

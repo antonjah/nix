@@ -113,7 +113,6 @@
     jetbrains.goland
     teams-for-linux
     fzf
-    cascadia-code
     starship
     youtube-music
     tmux
@@ -141,6 +140,7 @@
     gcc11
     cmake
     zed-editor
+    cascadia-code
   ];
 
   # zsh
