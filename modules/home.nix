@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
   # manage catppuccin
   catppuccin = builtins.fetchTarball {
@@ -22,12 +22,6 @@ in
     # set the state version that was first used
     home.stateVersion = "24.11";
 
-    # set packages
-    home.packages = [
-      pkgs.nixfmt-rfc-style
-      pkgs.nixd
-    ];
-
     # set $PATH
     home.sessionPath = [
       "/home/anton/.cargo/bin"
@@ -37,19 +31,36 @@ in
     # zed
     programs.zed-editor = {
       enable = true;
-      extensions = [ "nix" ];
+      extraPackages = with pkgs; [
+        nixd
+        nil
+        nixfmt-rfc-style
+      ];
+      extensions = [
+        "Catppuccin Icons"
+        "nix"
+      ];
+      userKeymaps = [
+        {
+          context = "Editor";
+          bindings = {
+            "ctrl-shift-alt-p" = "editor::Format";
+          };
+        }
+      ];
       userSettings = {
-        show_edit_predictions = "off";
+        show_edit_predictions = false;
+        buffer_font_family = "Cascadia Code";
         format_on_save = "off";
         languages = {
-          "Nix" = {
+          Nix = {
+            language_servers = [
+              "nil"
+              "!nixd"
+            ];
             formatter = {
               external = {
                 command = "nixfmt";
-                arguments = [
-                  "--quiet"
-                  "--"
-                ];
               };
             };
           };

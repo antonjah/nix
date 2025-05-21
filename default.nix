@@ -32,8 +32,7 @@
   networking.networkmanager.enable = true;
 
   # /etc/hosts
-  networking.extraHosts = ''
-  '';
+  networking.extraHosts = "";
 
   # time zone
   time.timeZone = "Europe/Stockholm";
@@ -103,6 +102,12 @@
   # docker
   virtualisation.docker.enable = true;
 
+  # java
+  programs.java = {
+    enable = true;
+    package = pkgs.temurin-bin;
+  };
+
   # packages
   environment.systemPackages = with pkgs; [
     bash
@@ -116,7 +121,6 @@
     tmux
     kubectl
     go
-    openjdk17-bootstrap
     python3
     gradle_7
     gcc11
@@ -135,12 +139,19 @@
     killall
     gcc11
     cmake
+    gnumake
     zed-editor
-    cascadia-code
     awscli2
     clang
     clang-tools
+    jdt-language-server
+    nixd
+    nil
+    nixfmt-rfc-style
   ];
+
+  # fonts
+  fonts.packages = with pkgs; [ cascadia-code ];
 
   # zsh
   programs.zsh.enable = true;
@@ -153,17 +164,10 @@
 
   # dynamic libraries
   programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    zlib
-    gcc11
-    glibc
-  ];
+  programs.nix-ld.libraries = with pkgs; [ zlib gcc11 glibc ];
 
   # nix features
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # nixos version that was first used (not current one)
   system.stateVersion = "24.11";
