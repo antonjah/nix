@@ -33,8 +33,6 @@
 
   # /etc/hosts
   networking.extraHosts = ''
-    127.0.0.1 eclipse.aws.protegrity.com
-    127.0.0.1 eclipseaf.aws.protegrity.com
   '';
 
   # time zone
@@ -84,7 +82,7 @@
   services.printing.enable = true;
 
   # sound
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -117,7 +115,6 @@
     youtube-music
     tmux
     kubectl
-    discord
     go
     openjdk17-bootstrap
     python3
@@ -130,7 +127,6 @@
     jq
     hyprlock
     rofi
-    dolphin
     waybar
     unzip
     pavucontrol
@@ -141,6 +137,9 @@
     cmake
     zed-editor
     cascadia-code
+    awscli2
+    clang
+    clang-tools
   ];
 
   # zsh

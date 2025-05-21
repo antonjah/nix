@@ -3,13 +3,13 @@ let
   # manage catppuccin
   catppuccin = builtins.fetchTarball {
     url = "https://github.com/catppuccin/nix/archive/main.tar.gz";
-    sha256 = "1k5lsnx6shjx6189cj2pny79whm72wpjj67aq2hs6hl3a2gxq27z";
+    sha256 = "0k82cja6f0fsinid2k5rc6kk1kp3hnrs59309cj6gyjxkyzmdzxs";
   };
 
   # manage home-manager (inception)
   home-manager = builtins.fetchTarball {
-    url = "https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz";
-    sha256 = "0gjfa3bv0m0kymxqla9iih11gjb6czyj942v34pyc7xy4qsx898k";
+    url = "https://github.com/nix-community/home-manager/archive/master.tar.gz";
+    sha256 = "11pqy782p1g3h2fwswf3xiwafs6c70igj253jzyvdbaj5i50x86s";
   };
 in
 {
@@ -29,13 +29,17 @@ in
     ];
 
     # set $PATH
-    home.sessionPath = [ "/home/anton/.cargo/bin" ];
+    home.sessionPath = [
+      "/home/anton/.cargo/bin"
+      "/home/anton/go/bin"
+    ];
 
     # zed
     programs.zed-editor = {
       enable = true;
       extensions = [ "nix" ];
       userSettings = {
+        show_edit_predictions = "off";
         format_on_save = "off";
         languages = {
           "Nix" = {
@@ -152,7 +156,7 @@ in
         ecu = "cd ~/src/gitlab/pim/code && gradle pim.esamock:composeUp --parallel -w && cd -";
         ecd = "cd ~/src/gitlab/pim/code && gradle pim.esamock:composeDown -w && cd -";
       };
-      initExtra = ''
+      initContent = ''
         bindkey -e
         bindkey "^[[1;5C" forward-word
         bindkey "^[[1;5D" backward-word
