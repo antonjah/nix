@@ -32,7 +32,8 @@
   networking.networkmanager.enable = true;
 
   # /etc/hosts
-  networking.extraHosts = "";
+  networking.extraHosts = "
+  ";
 
   # time zone
   time.timeZone = "Europe/Stockholm";
@@ -114,6 +115,7 @@
     git
     vscode
     jetbrains.goland
+    jetbrains.idea-community
     teams-for-linux
     fzf
     starship
@@ -148,6 +150,7 @@
     nixd
     nil
     nixfmt-rfc-style
+    btop
   ];
 
   # fonts

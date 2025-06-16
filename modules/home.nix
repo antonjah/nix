@@ -234,6 +234,9 @@ in
       tmux.enableShellIntegration = true;
     };
 
+    # btop
+    programs.btop.enable = true;
+
     # starship
     programs.starship = {
       enable = true;
