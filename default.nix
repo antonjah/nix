@@ -17,6 +17,7 @@
   # opengl
   hardware.graphics = {
     enable = true;
+    enable32Bit = true;
     extraPackages = with pkgs; [ nvidia-vaapi-driver ];
   };
 
@@ -65,9 +66,9 @@
   programs.hyprland.enable = true;
 
   # gnome
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.gdm.wayland = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.displayManager.gdm.wayland = true;
+  services.desktopManager.gnome.enable = true;
 
   # disable gnome autosuspend
   systemd.targets.sleep.enable = false;
@@ -151,6 +152,8 @@
     nil
     nixfmt-rfc-style
     btop
+    spotify
+    playerctl
   ];
 
   # fonts
@@ -168,6 +171,9 @@
   # dynamic libraries
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [ zlib gcc11 glibc ];
+
+  # steam
+  programs.steam.enable = true;
 
   # nix features
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

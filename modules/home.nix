@@ -103,6 +103,7 @@ in
       settings = {
         general = {
           hide_cursor = true;
+          fractional_scaling = 1;
         };
         input-field = [ { monitor = "DP-2, 2560x1080@144, 0x0, 1"; } ];
       };
