@@ -3,6 +3,10 @@
 {
   imports = [ ./modules ];
 
+  # /etc/hosts
+  networking.extraHosts = "
+  ";
+
   # nvidia
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
@@ -31,10 +35,6 @@
 
   # networking
   networking.networkmanager.enable = true;
-
-  # /etc/hosts
-  networking.extraHosts = "
-  ";
 
   # time zone
   time.timeZone = "Europe/Stockholm";
@@ -126,7 +126,7 @@
     go
     python3
     gradle_7
-    gcc11
+    gcc13
     kubernetes-helm
     k9s
     tig
@@ -140,7 +140,6 @@
     hyprpaper
     hyprcursor
     killall
-    gcc11
     cmake
     gnumake
     zed-editor
@@ -154,6 +153,14 @@
     btop
     spotify
     playerctl
+    delve
+    gopls
+    file
+    patchelf
+    gtop
+    sslscan
+    openssl
+    wl-clipboard
   ];
 
   # fonts
@@ -170,7 +177,7 @@
 
   # dynamic libraries
   programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [ zlib gcc11 glibc ];
+  programs.nix-ld.libraries = with pkgs; [ zlib gcc13 glibc ];
 
   # steam
   programs.steam.enable = true;

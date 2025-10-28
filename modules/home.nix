@@ -3,13 +3,13 @@ let
   # manage catppuccin
   catppuccin = builtins.fetchTarball {
     url = "https://github.com/catppuccin/nix/archive/main.tar.gz";
-    sha256 = "0k82cja6f0fsinid2k5rc6kk1kp3hnrs59309cj6gyjxkyzmdzxs";
+    sha256 = "1dq55kk1scv2h48zagkapm2wk02pvdwm6wyrph6qpn7v01s7lwv8";
   };
 
   # manage home-manager (inception)
   home-manager = builtins.fetchTarball {
     url = "https://github.com/nix-community/home-manager/archive/master.tar.gz";
-    sha256 = "11pqy782p1g3h2fwswf3xiwafs6c70igj253jzyvdbaj5i50x86s";
+    sha256 = "1k9rnxmjv9k6wam3iqn3wi4fk8si1g6ml3gff9k041na8cykhp8v";
   };
 in
 {
@@ -26,7 +26,13 @@ in
     home.sessionPath = [
       "/home/anton/.cargo/bin"
       "/home/anton/go/bin"
+      "/home/anton/Scripts"
     ];
+
+    # lazygit
+    programs.lazygit = {
+      enable = true;
+    };
 
     # zed
     programs.zed-editor = {
@@ -39,12 +45,17 @@ in
       extensions = [
         "Catppuccin Icons"
         "nix"
+        "Helm"
       ];
       userKeymaps = [
         {
           context = "Editor";
           bindings = {
             "ctrl-shift-alt-p" = "editor::Format";
+            "f10" = "debugger::Start";
+            "f6" = "debugger::StepOver";
+            "f5" = "debugger::StepInto";
+            "f8" = "debugger::StepOut";
           };
         }
       ];
@@ -165,8 +176,8 @@ in
         k = "kubectl";
         curl = "curlie";
         gco = "git checkout";
-        ecu = "cd ~/src/gitlab/pim/code && gradle pim.esamock:composeUp --parallel -w && cd -";
-        ecd = "cd ~/src/gitlab/pim/code && gradle pim.esamock:composeDown -w && cd -";
+        ecu = "cd ~/src/gitlab/pimold/code && gradle pim.esamock:composeUp --parallel -w && cd -";
+        ecd = "cd ~/src/gitlab/pimold/code && gradle pim.esamock:composeDown -w && cd -";
       };
       initContent = ''
         bindkey -e
@@ -361,7 +372,13 @@ in
         zig = {
           disabled = true;
         };
+        aws = {
+          disabled = true;
+        };
         gradle = {
+          disabled = true;
+        };
+        kubernetes = {
           disabled = true;
         };
       };
