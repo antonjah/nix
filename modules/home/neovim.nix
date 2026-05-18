@@ -8,6 +8,9 @@
     enable = true;
     vimAlias = true;
     viAlias = true;
+    withRuby = false;
+    withPython3 = true;
+
     extraPackages = with pkgs; [
       pyright
       basedpyright
@@ -27,6 +30,7 @@
       tree-sitter
       lazygit
     ];
+
     plugins = [
       pkgs.vimPlugins.nvim-treesitter.withAllGrammars
       pkgs.vimPlugins.lazygit-nvim
@@ -65,6 +69,7 @@
         '';
       }
     ];
+
     initLua = ''
       vim.opt.clipboard = "unnamedplus"
     '';
