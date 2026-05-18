@@ -7,13 +7,8 @@
       shellAbbrs = {
         ns = "nix-shell";
         cat = "bat -p";
+        nos = "sudo nixos-rebuild switch --flake ${config.home.homeDirectory}/nix#home";
         ls = "eza";
-      };
-
-      functions = {
-        nos = ''
-          sudo nixos-rebuild switch --flake ${config.home.homeDirectory}/nix#home
-        '';
       };
 
       interactiveShellInit = ''
